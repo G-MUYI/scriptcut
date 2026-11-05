@@ -1,0 +1,70 @@
+title: 三段真实视频截图示例
+script: input/script.txt
+elements:
+  M01: {src: materials/platform-upper-info.png, role: media, fit: contain}
+  M02: {src: materials/platform-upper-scope.png, role: media, fit: contain}
+  M03: {src: materials/platform-upper-checklist.png, role: media, fit: contain}
+  M04: {src: materials/platform-lower-compare.png, role: media, fit: contain}
+  M05: {src: materials/platform-lower-chart.png, role: media, fit: contain}
+  M06: {src: materials/platform-lower-funds.png, role: media, fit: contain}
+  M07: {src: materials/midterms-seats.png, role: media, fit: contain}
+  M08: {src: materials/midterms-districts.png, role: media, fit: contain}
+  M09: {src: materials/midterms-timeline.png, role: media, fit: contain}
+  W07: {kind: word, text: 席位图, accent: 琥珀}
+  W08: {kind: word, text: 选区示意, accent: 琥珀}
+  W09: {kind: word, text: 任期时间线, accent: 琥珀}
+shots:
+  - id: S00
+    duration: 1.6
+    chapter: {n: "", title: "三段真实视频|九张内容截图"}
+  - id: S01
+    seg: 合规平台上篇
+    text: 第一段，识别真正的合规平台上篇，先展示平台主体信息。
+    layout: media
+    items:
+      - {el: M01, trigger: 第一段, box: [1500, 844], preset: fade, idle: none}
+  - id: S02
+    text: 接着，用对照画面呈现业务范围和风险提示。
+    layout: media
+    items:
+      - {el: M02, trigger: 接着, box: [1500, 844], preset: fade, idle: none}
+  - id: S03
+    text: 最后，把查询步骤整理成逐项核对的清单。
+    layout: media
+    items:
+      - {el: M03, trigger: 最后, box: [1500, 844], preset: fade, idle: none}
+  - id: S04
+    seg: 合规平台下篇
+    text: 第二段，合规平台下篇，通过并排信息卡展示对比。
+    layout: media
+    items:
+      - {el: M04, trigger: 第二段, box: [1500, 844], preset: fade, idle: none}
+  - id: S05
+    text: 随后，切换到数据面板和柱状图画面。
+    layout: media
+    items:
+      - {el: M05, trigger: 随后, box: [1500, 844], preset: fade, idle: none}
+  - id: S06
+    text: 这一篇还用分栏卡片，呈现资金相关的信息。
+    layout: media
+    items:
+      - {el: M06, trigger: 这一篇, box: [1500, 844], preset: fade, idle: none}
+  - id: S07
+    seg: 中期选举
+    text: 第三段转向美国中期选举，用席位图组织信息。
+    layout: media_word
+    items:
+      - {el: M07, trigger: 第三段, pos: [610, 540], box: [420, 747], preset: fade, idle: none}
+      - {el: W07, trigger: 席位图, pos: [1330, 540], size: 480, idle: none}
+  - id: S08
+    text: 再用选区示意，把抽象概念变成直观画面。
+    layout: media_word
+    items:
+      - {el: M08, trigger: 再用, pos: [610, 540], box: [420, 747], preset: fade, idle: none}
+      - {el: W08, trigger: 选区示意, pos: [1330, 540], size: 480, idle: none}
+  - id: S09
+    text: 最后以任期时间线收尾，三段内容都保留原始截图。
+    layout: media_word
+    items:
+      - {el: M09, trigger: 最后, pos: [610, 540], box: [420, 747], preset: fade, idle: none}
+      - {el: W09, trigger: 任期时间线, pos: [1330, 540], size: 480, idle: none}

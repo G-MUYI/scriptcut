@@ -3,8 +3,8 @@
 > 一份口播文案进去，一份**可编辑的剪映草稿**出来：配好音、对好节奏、元素随口播入场、带音效配乐，打开剪映就能继续精修（也可以直接出 MP4）。
 > 为 AI Agent 设计：**豆包、WorkBuddy、CodeBuddy、Trae、通义灵码、扣子**等国内 Agent，以及 Claude Code、Codex、Cursor、Gemini CLI 和任何 MCP 客户端都能调用。
 
-![示例总览图](docs/images/sky-blue-sheet.jpg)
-<sub>示例项目 `examples/sky-blue`（42 秒科普，edge-tts 免费配音，零 API Key 跑通）的静帧总览，由 `scriptcut stills` 生成。</sub>
+![三段真实视频截图示例](docs/images/video-screenshots-sheet.jpg)
+<sub>主示例 `examples/video-screenshots`：从“识别真正的合规平台”上、下篇及 `11.3.mp4` 各提取 3 张截图，配合介绍文案、字幕与音效配乐，生成可编辑剪映草稿。截图已随仓库提供，无需出图 API。</sub>
 
 ## 它做什么
 
@@ -45,11 +45,11 @@ pip install -e ".[all]"            # 只要核心：pip install -e . ；按需 .
 playwright install chromium        # MP4 出片 / 代码画面需要（Linux 另执行 playwright install-deps）
 scriptcut doctor                   # 检查 ffmpeg / 浏览器 / 中文字体 / 剪映库 / 出图 API
 
-# 跑通示例（不需要任何 Key）
-python examples/sky-blue/tools/make_assets.py     # 生成示例素材（代替 AI 出图）
-scriptcut run examples/sky-blue                    # check → gen → voice → timeline → cues → audio → 剪映草稿 + MP4 → deliver
+# 跑通主示例（真实视频截图，不需要任何 Key）
+scriptcut run examples/video-screenshots           # check → gen → voice → timeline → cues → audio → 剪映草稿 → deliver
 # 剪映草稿：Windows/macOS 自动放进剪映草稿目录（其他系统在 build/jianying/）；预览图 build/jianying/draft_preview.jpg
-# 成片：examples/sky-blue/out/sky-blue.mp4 ；交付包：examples/sky-blue/out/sky-blue/
+scriptcut render examples/video-screenshots        # 可选：输出 MP4 成片
+# 交付包在 examples/video-screenshots/out/ 下；截图来源与重新提取方法见该示例 README
 ```
 
 ### 做自己的视频
@@ -149,7 +149,8 @@ IMAGE_MODEL=doubao-seedream-4-0-250828   # 以控制台里的模型 ID / 接入�
 - [docs/agents-cn.md](docs/agents-cn.md) — 豆包 / WorkBuddy / CodeBuddy / Trae / 通义灵码 / 扣子接入，出图 API，剪映草稿说明
 - [docs/agents.md](docs/agents.md) — Claude Code / Codex / Gemini CLI / Cursor / MCP 客户端 / 工作流引擎接入
 - [docs/design.md](docs/design.md) — 架构取舍，以及从四个原型里沉淀下来的经验与踩坑
-- [examples/sky-blue](examples/sky-blue) — 完整示例（含两个自定义 Canvas 画面）
+- [examples/video-screenshots](examples/video-screenshots) — 主示例：三段真实视频的截图、介绍文案与分镜（横竖屏混排）
+- [examples/sky-blue](examples/sky-blue) — 补充示例：天空科普（含两个自定义 Canvas 画面）
 
 ## 开发
 

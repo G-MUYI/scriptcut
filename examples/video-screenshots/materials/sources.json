@@ -1,0 +1,18 @@
+{
+  "sources": [
+    {"id": "upper", "filename": "3.识别真正的合规平台（上）改(1)--加音乐--加字幕.mp4"},
+    {"id": "lower", "filename": "2.识别真正的合规平台（下）(1)-加音乐-加字幕.mp4"},
+    {"id": "midterms", "filename": "11.3.mp4"}
+  ],
+  "frames": [
+    {"source": "upper", "time": 22.68, "file": "platform-upper-info.png"},
+    {"source": "upper", "time": 31.76, "file": "platform-upper-scope.png"},
+    {"source": "upper", "time": 49.90, "file": "platform-upper-checklist.png"},
+    {"source": "lower", "time": 17.28, "file": "platform-lower-compare.png"},
+    {"source": "lower", "time": 28.81, "file": "platform-lower-chart.png"},
+    {"source": "lower", "time": 74.90, "file": "platform-lower-funds.png"},
+    {"source": "midterms", "time": 51.30, "file": "midterms-seats.png"},
+    {"source": "midterms", "time": 119.69, "file": "midterms-districts.png"},
+    {"source": "midterms", "time": 153.89, "file": "midterms-timeline.png"}
+  ]
+}

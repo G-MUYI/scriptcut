@@ -1,0 +1,22 @@
+title: 三段真实视频截图示例
+style: dark-hud
+style_overrides:
+  subtitle:
+    enabled: true
+    y: 1010
+    font_px: 38
+    max_chars: 26
+  hud:
+    title: ScriptCut · 真实视频截图
+  music:
+    mood: calm
+    gain: 0.35
+voice:
+  source: auto
+  tts:
+    provider: edge
+    voice: zh-CN-XiaoxiaoNeural
+    speed: 1.1
+render:
+  backend: jianying
+  workers: 4
