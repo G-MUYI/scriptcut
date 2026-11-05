@@ -1,0 +1,131 @@
+# 白底条漫科普（竖屏 9:16）
+# 画面：白底 + AI 手绘素材（灰调 + 单一点缀色）+ 顶部逐字标题（念到哪个字显示到哪个字，关键词标红）；
+# 元素按口播关键词快速入场（MG 缓动、无拖影），落定后缓慢放大或上下浮动；按入场方式自动配音效；默认无背景音乐。
+name: whiteboard
+description: 白底手绘条漫知识科普，顶部逐字标题，元素随口播关键词入场
+canvas: {width: 1080, height: 1920, fps: 30}
+
+background: {color: "#FFFFFF", pattern: none}
+content_area: [60, 300, 1020, 1860]   # x0, y0, x1, y1：元素只摆在这里；顶部 300 以上留给标题
+bleed_keep: 0.6                        # 允许出画的元素（人物）至少保留 60% 在画面内
+max_items_per_shot: 4
+max_coverage: 0.50                     # 单镜元素可见像素 / 画布 上限
+
+font:
+  files: [NotoSansCJK-Bold.ttc, SourceHanSansSC-Bold.otf, msyhbd.ttc, PingFang.ttc]
+  weight: 800
+
+# 点缀色：名称 → 色值 + 语义（分配点缀色时按语义选）
+palette:
+  明黄: {hex: "#F2C230", meaning: 主角、金钱、光}
+  嫩绿: {hex: "#8CC86E", meaning: 春天、新技术、希望、正确}
+  橙黄: {hex: "#E8963C", meaning: 夏天、繁荣、温暖}
+  赭石: {hex: "#B8693A", meaning: 秋天、见顶、旧时代}
+  蓝灰: {hex: "#6F8FB8", meaning: 冬天、紧缩、冷静}
+  天蓝: {hex: "#4A90D9", meaning: 天空、水、科技}
+  大红: {hex: "#D2412F", meaning: 警示、下跌、否定}
+  淡青: {hex: "#7CC9C4", meaning: 懊恼、委屈情绪}
+  淡粉: {hex: "#F0A0B0", meaning: 生活、温饱、身体}
+
+# 元素默认大小与入场。size 是「等效边长」：按可见内容 √(宽×高) = size 缩放，竖长人物和方形图标视觉分量一致
+roles:
+  character: {size: 860, preset: slide_auto, bleed: true}
+  big:       {size: 1000, preset: slide_auto, bleed: true}
+  hero:      {size: 680, preset: pop}
+  icon:      {size: 420, preset: pop}
+  small:     {size: 300, preset: pop}
+  word:      {size: 560, preset: zoom_slam}
+  media:     {size: 900, preset: fade}
+
+# 版式：每个位置 [x, y, size]（中心点 + 等效边长）或 [x, y, w, h]（中心点 + 盒子，素材按 fit 放进盒子）
+# 原则：每镜一个视觉重心（人物或主视觉最大），其余元素明显更小、错落摆放；人物靠边或靠下出画。
+layouts:
+  hero:        [[540, 1060, 760]]
+  person:      [[540, 1240, 1000]]
+  word_hero:   [[540, 560, 560], [540, 1200, 720]]
+  hero_word:   [[540, 920, 720], [540, 1580, 520]]
+  person_word: [[540, 1380, 900], [540, 560, 520]]
+  person_l:    [[330, 1300, 900], [790, 700, 420], [800, 1200, 340]]
+  person_r:    [[750, 1300, 900], [290, 700, 420], [280, 1200, 340]]
+  person_duo:  [[540, 1400, 860], [250, 660, 340], [830, 780, 340]]
+  duo_diag:    [[350, 720, 520], [730, 1320, 560]]
+  duo_v:       [[540, 720, 620], [540, 1380, 560]]
+  duo_h:       [[300, 1000, 420], [780, 1000, 420]]
+  trio_tri:    [[540, 700, 580], [290, 1360, 400], [790, 1360, 400]]
+  trio_zig:    [[320, 660, 420], [760, 1040, 420], [320, 1420, 420]]
+  row3_hero:   [[230, 600, 260], [540, 600, 260], [850, 600, 260], [540, 1240, 720]]
+  quad:        [[300, 720, 400], [780, 720, 400], [300, 1320, 400], [780, 1320, 400]]
+  media:       [[540, 1000, 960, 1100]]                         # 截图 / 视频素材放进盒子
+  media_word:  [[540, 1150, 960, 900], [540, 520, 520]]
+  full:        [[540, 960, 1080, 1920]]
+
+# 文字元素（kind: word）的本地渲染
+word:
+  font_px: 150
+  ink: "#2A2A2A"
+  stroke: 0
+  line_max: 8              # 超过就折成两行
+
+# 顶部逐字标题：每个字念到时模糊淡入，关键词标红；x / y 是文字块左上角
+caption:
+  enabled: true
+  align: left
+  x: 56
+  y: 116
+  font_px: 62
+  line_height: 1.3
+  max_line: 12
+  ink: "#1C1C1C"
+  red: "#C8202E"
+  density: 2               # 剪映后端：2 倍分辨率渲染再缩小，保证清晰
+  reveal: 0.12             # 单字显现时长（秒）
+  blur: 5
+
+subtitle: {enabled: false}
+
+# 落定后的待机动效（每个元素随机二选一，item 可用 idle: zoom/float/none 指定）
+idle:
+  zoom_rate: 0.02
+  zoom_max: 0.06
+  float_px: 10
+  float_period: 2.8
+  float_step: 0.1
+
+chapter: {bg: "#1E2430", fg: "#FFFFFF", accent: "#F2C230", number_px: 220, title_px: 96}
+hud: {enabled: false}
+
+timing:
+  cps: 5.0                 # 无配音时估算语速（字/秒）
+  cut_lead: 0.04           # 换镜比下一镜第一个字早一点
+  tail: 0.5                # 配音结束后的收尾
+  min_show: 0.6            # 元素至少展示时长
+  blank_warn: 0.8          # 镜头开头空画面超过这么久就提示
+
+voice_gaps: {lead: 0.3, sentence: 0.12, segment: 0.3, chapter_before: 0.45, chapter_after: 0.5, tail: 0.5}
+
+sfx:
+  master: 0.6
+  dedupe: 0.12             # 同一时刻多个元素入场只响一次
+  gain: {pop: 0.7, pop_soft: 0.6, boing: 0.6, thud: 0.9, whoosh: 0.6, swish: 0.6, swing: 0.5, ding: 0.5,
+         scribble: 0.7, strike: 0.7, stamp: 0.9, counter: 0.7}
+
+music: {enabled: false, mood: bright, bpm: 104, gain: 0.5, duck: 0.65}
+
+# AI 出图提示词：主体描述（分镜里写）+ 标注句 + 人物句 + 点缀色句 + 风格段（这里统一拼接，分镜里不要写风格）
+image_prompt:
+  ratio: "1:1"
+  style_prompt: >-
+    白底潦草条漫手绘风格的单个独立素材。黑色粗糙抖动线条勾线，线宽不均，轮廓不闭合、转角处线条出头；
+    平涂上色故意溢出轮廓、露出白边，有不完美的手绘感；无厚涂、无渐变、无实景透视、无投影。
+    只画这一个主体，不要背景、不要地面，除指定的手写标注外不要任何文字，主体居中，四周留出充足空白，纯透明背景。
+  accent_prompt: >-
+    全图只使用一种点缀色：{color_name}（{hex}），仅用于{accent_part}；其余所有部分只用灰色调
+    （浅灰排线做受光面、中灰平涂、深灰近黑勾线），不得出现其他任何颜色。
+  label_prompt: 图上用潦草的手写毛笔字写上「{label}」，字用深灰近黑色，只写这几个字，不要写任何别的字。
+  character_prompt: >-
+    人物外观严格参考人物参考图：{character}。人物必须有体积感的面形身体、完整五官和衣服褶皱，禁止火柴人。
+    表情和动作只按本条描述来画，不要沿用参考图的表情和姿势。
+  word_prompt: 一组潦草有力的手写毛笔大字，内容严格为「{text}」，共 {n} 个字符，一字不多、一字不少、不能写错字，排成一行或两行；
+  word_color_split: 其中「{hl}」用{color_name}（{hex}）书写，「{rest}」用深灰近黑色书写；
+  word_color_all: 字用{color_name}（{hex}）书写，笔画边缘带一点深灰枯笔；
+  word_style_prompt: 干笔飞白、笔触粗犷、略带墨点飞溅，像条漫里的手写大字；不要任何图案、边框、背景，也不要写其他任何字，纯透明背景。

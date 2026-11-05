@@ -1,0 +1,26 @@
+# 示例项目：45 秒知识科普「天空为什么是蓝色的」（竖屏 9:16，白底条漫风格）
+# 全部字段都有默认值，这里只写和默认不同的。完整字段见 docs/schema.md。
+title: 天空为什么是蓝色的
+style: whiteboard
+
+# 在风格基础上微调：加一个紫色点缀色
+style_overrides:
+  palette:
+    紫: {hex: "#8E6CCF", meaning: 紫光}
+
+# 人物外观（AI 出图时拼进人物提示词）；有参考图就填 ref
+character:
+  description: 黑色短发、黄色连帽卫衣、蓝色牛仔裤的年轻女生
+  ref: ""
+
+voice:
+  source: auto          # 有 input/voice.* 就用录音，否则 TTS
+  tts:
+    provider: auto      # 有 FISH_API_KEY + FISH_VOICE_ID 用 Fish，否则 edge-tts（免费）
+    voice: zh-CN-XiaoxiaoNeural
+    speed: 1.1
+
+render:
+  backend: both          # 可编辑剪映草稿 + MP4 成片
+  workers: 4
+  motion_blur: 1

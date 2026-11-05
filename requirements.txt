@@ -1,0 +1,13 @@
+# 核心（必装）
+numpy>=1.24
+Pillow>=10
+PyYAML>=6.0
+requests>=2.28
+
+# 可选：按需安装（也可以 pip install -e ".[all]"）
+playwright>=1.45        # Canvas 出片；装完执行：playwright install chromium
+pyJianYingDraft==0.3.0  # 剪映草稿
+edge-tts>=6.1           # 免费 TTS
+python-docx>=1.1        # 读 docx 文案
+openpyxl>=3.1           # 分镜审阅表
+mcp>=1.2                # MCP Server

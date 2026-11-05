@@ -1,0 +1,137 @@
+# 分镜 + 素材库。规则：所有镜头 text 按顺序拼起来必须与 input/script.txt 逐字一致（含标点）。
+# 元素在 trigger 那几个字念出时入场；red 是顶部标题里标红的词；scene 引用 scenes/<名字>.js 自定义画面。
+title: 天空为什么是蓝色的
+script: input/script.txt
+
+elements:
+  # ---------- 人物（AI 出图；示例里由 tools/make_assets.py 画了简笔版） ----------
+  C01: {role: character, accent: 明黄, accent_part: 卫衣, name: 女生托腮思考, prompt: 年轻女生半身，一只手托着下巴，抬眼思考，头顶一个问号}
+  C02: {role: character, accent: 明黄, accent_part: 卫衣, name: 女生抬头看天, prompt: 年轻女生仰头看向天空，一只手搭在额头上遮光}
+  C03: {role: character, accent: 明黄, accent_part: 卫衣, name: 女生疑惑摊手, prompt: 年轻女生耸肩、双手向两侧摊开，歪头疑惑}
+
+  # ---------- 道具 / 图形 ----------
+  P01: {role: hero, accent: 天蓝, accent_part: 天空, name: 蓝天白云, prompt: 一块圆角方形的蓝天，中间飘着一朵白云}
+  P02: {role: hero, accent: 明黄, accent_part: 太阳, name: 太阳, prompt: 一个笑脸太阳，四周一圈短短的光芒}
+  P03: {role: hero, accent: 大红, accent_part: 光带, name: 三棱镜分光, prompt: 一束白光射进三棱镜，另一侧散开成七色光带}
+  P04: {role: hero, accent: 天蓝, accent_part: 短波, name: 长波和短波, prompt: 上下两条波浪线，上面一条波长很长很平缓，下面一条波长很短很密集}
+  P05: {role: hero, accent: 天蓝, accent_part: 波浪, name: 蓝光短波, prompt: 一条又短又密的蓝色波浪线，周围散开几道小箭头}
+  P07: {role: hero, accent: 紫, accent_part: 最右边的柱子, name: 七色光强度柱状图, prompt: 七根从左到右的柱子，最右边代表紫光的一根最矮}
+  P08: {role: icon, accent: 紫, accent_part: 瞳孔, name: 眼睛, prompt: 一只睁大的眼睛}
+  P09: {role: hero, accent: 大红, accent_part: 叉, name: 红叉, prompt: 一个粗犷的手绘大叉，笔触干涩有飞白}
+  P10: {role: hero, accent: 橙黄, accent_part: 晚霞, name: 晚霞, prompt: 地平线上半个落日，天空是一层层橙红色的晚霞}
+
+  # ---------- 文字（本地渲染，清晰可编辑） ----------
+  W01: {kind: word, text: 蓝色？, hl: 蓝色, accent: 天蓝}
+  W02: {kind: word, text: 空气分子, accent: 蓝灰}
+  W03: {kind: word, text: 越短越乱跑, hl: 越短, accent: 天蓝}
+  W04: {kind: word, text: 瑞利散射, accent: 大红}
+  W05: {kind: word, text: 散射最强, hl: 最强, accent: 天蓝}
+  W06: {kind: word, text: 紫色呢？, hl: 紫色, accent: 紫}
+  W07: {kind: word, text: 晚霞, accent: 橙黄}
+  W08: {kind: word, text: 光 × 空气, hl: ×, accent: 天蓝}
+
+shots:
+  - id: S00
+    duration: 1.6
+    chapter: {n: "", title: "天空为什么|是蓝色的"}
+
+  - id: S01
+    text: 你有没有想过，天空为什么是蓝色的？
+    layout: person_word
+    red: [蓝色]
+    items:
+      - {el: C01, trigger: 你有没有}
+      - {el: W01, trigger: 蓝色}
+
+  - id: S02
+    text: 阳光看起来是白色，其实它混合了七种颜色。
+    layout: duo_v
+    red: [七种颜色]
+    items:
+      - {el: P02, trigger: 阳光}
+      - {el: P03, trigger: 混合, preset: grow, grow: right}
+
+  - id: S03
+    text: 光线穿过大气时，会撞上无数比它小得多的空气分子。
+    layout: hero_word
+    scene: scatter
+    red: [空气分子]
+    marks: {hit: 撞上, mol: 空气分子}
+    items:
+      - {el: W02, trigger: 空气分子, slot: 2}
+
+  - id: S04
+    text: 波长越短的光，越容易被撞得四处乱跑，
+    layout: hero_word
+    red: [越短]
+    items:
+      - {el: P04, trigger: 波长, preset: grow, grow: right}
+      - {el: W03, trigger: 四处乱跑}
+
+  - id: S05
+    text: 这就叫瑞利散射。
+    layout: hero
+    red: [瑞利散射]
+    items:
+      - {el: W04, trigger: 这就叫, shake: true}
+
+  - id: S06
+    text: 蓝光的波长很短，被散射得最厉害，
+    layout: duo_v
+    red: [最厉害]
+    items:
+      - {el: P05, trigger: 蓝光}
+      - {el: W05, trigger: 最厉害}
+
+  - id: S07
+    text: 所以抬头望去，满天都是蓝色。
+    layout: person_r
+    red: [满天都是蓝色]
+    items:
+      - {el: C02, trigger: 所以}
+      - {el: P01, trigger: 满天, preset: drop}
+
+  - id: S08
+    text: 那为什么不是更短的紫色？
+    layout: person_word
+    red: [紫色]
+    items:
+      - {el: C03, trigger: 那为什么}
+      - {el: W06, trigger: 紫色}
+
+  - id: S09
+    text: 因为阳光里紫光本来就少，我们的眼睛对紫色也不敏感。
+    layout: duo_diag
+    red: [本来就少, 不敏感]
+    items:
+      - {el: P07, trigger: 因为, preset: grow, grow: up}
+      - {el: P08, trigger: 眼睛}
+      - {el: P09, over: P08, trigger: 不敏感, size: 360, sfx: strike}
+
+  - id: S10
+    text: 到了傍晚，阳光要斜穿更厚的大气，蓝光在半路就被散射光了，
+    layout: hero
+    scene: sunset
+    red: [傍晚, 散射光了]
+    marks: {thick: 更厚, lost: 散射光了}
+
+  - id: S11
+    text: 剩下的红光和橙光，就染出了晚霞。
+    layout: hero_word
+    red: [晚霞]
+    items:
+      - {el: P10, trigger: 剩下, preset: fade_up}
+      - {el: W07, trigger: 晚霞}
+
+  - id: S12
+    text: 记住一句话：天空的颜色，是光和空气一起画出来的。
+    layout: person_word
+    red: [光和空气]
+    cap: ["记住一句话", "天空的颜色", "是光和空气|一起画出来的"]
+    items:
+      - {el: C01, trigger: 记住}
+      - {el: W08, trigger: 光和空气}
+
+facts:
+  - {claim: 瑞利散射强度与波长的四次方成反比, status: 一致, source: 大学物理教材}
+  - {claim: 人眼对紫光不敏感, status: 一致, source: 视锥细胞光谱响应曲线}

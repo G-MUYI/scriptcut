@@ -1,0 +1,26 @@
+# 项目设置（只写和默认不同的字段；完整说明见 docs/schema.md）
+title: {title}
+style: {style}            # 内置：whiteboard（白底条漫竖屏）/ explainer（点阵底解说竖屏）/ dark-hud（深色横屏）
+
+# style_overrides:       # 在风格基础上微调，例如加点缀色、关掉配乐
+#   palette: {紫: {hex: "#8E6CCF", meaning: 紫光}}
+#   music: {enabled: false}
+
+character:
+  description: ""         # 主角外观（AI 出人物图时拼进提示词），例如「黑色短发、黄色连帽卫衣的年轻女生」
+  ref: ""                 # 人物参考图（相对本目录），例如 assets/character_ref.png
+
+voice:
+  source: auto            # auto：有 input/voice.* 用录音，否则 TTS | tts | file | none（只估算）
+  align: auto             # 录音对齐：auto | asr（Fish 识别）| silence（离线）
+  tts:
+    provider: auto        # auto：有 FISH_API_KEY 用 fish，否则 edge（免费）
+    voice: ""             # edge 例如 zh-CN-YunxiNeural / zh-CN-XiaoxiaoNeural；fish 填音色 reference_id
+    speed: 1.0
+    verify: false         # fish：逐句 ASR 回听，漏字自动重合成
+  replace: {}             # 读法替换（只影响 TTS）：{"30ms": "三十毫秒"}
+
+render:
+  backend: jianying       # jianying（可编辑剪映草稿，默认）| canvas（MP4 代码出片）| both
+  workers: 4
+  motion_blur: 1          # 成片可设 8~12（每帧子采样数，快速运动更顺），预览用 1

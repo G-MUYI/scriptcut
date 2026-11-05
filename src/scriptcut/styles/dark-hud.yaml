@@ -1,0 +1,93 @@
+# 深色科技 / 品牌广告（横屏 16:9）
+# 画面：深空黑底 + 细网格 + 发光强调色；文字以「英文小标签 → 中文粗标题 → 细字说明」的版式化大字出现，无底部卡拉 OK 字幕；
+# 120 BPM 合成配乐、冲击音效按峰值对齐。重头戏通常交给自定义 Canvas 画面（scenes/*.js），这个风格只提供底子。
+name: dark-hud
+description: 深色网格底、发光强调色的横屏科技 / 品牌短片，适合配合自定义 Canvas 画面
+canvas: {width: 1920, height: 1080, fps: 30}
+
+background: {color: "#05070D", pattern: grid, pattern_color: "#121826", spacing: 80}
+content_area: [120, 140, 1800, 960]
+bleed_keep: 0.8
+max_items_per_shot: 4
+max_coverage: 0.45
+
+font:
+  files: [NotoSansCJK-Bold.ttc, SourceHanSansSC-Bold.otf, msyhbd.ttc, PingFang.ttc]
+  weight: 800
+
+palette:
+  青:   {hex: "#00D1FF", meaning: 品牌、可验证、关键项}
+  绿:   {hex: "#2EE59D", meaning: 通过、成交}
+  红:   {hex: "#FF4D4F", meaning: 风险}
+  琥珀: {hex: "#FFB020", meaning: 下一步、当前项}
+  白:   {hex: "#F5F7FA", meaning: 点名}
+
+roles:
+  character: {size: 620, preset: slide_auto, bleed: false}
+  big:       {size: 720, preset: slide_auto, bleed: false}
+  hero:      {size: 560, preset: blur_in}
+  icon:      {size: 320, preset: pop}
+  small:     {size: 220, preset: pop}
+  word:      {size: 520, preset: zoom_slam}
+  media:     {size: 900, preset: fade}
+
+layouts:
+  hero:        [[960, 560, 620]]
+  word_hero:   [[960, 300, 520], [960, 680, 520]]
+  hero_word:   [[960, 470, 560], [960, 880, 420]]
+  left_word:   [[620, 560, 520], [1320, 560, 480]]   # 左图右字
+  right_word:  [[1300, 560, 520], [600, 560, 480]]
+  duo_h:       [[620, 560, 460], [1300, 560, 460]]
+  trio_row:    [[480, 560, 360], [960, 560, 360], [1440, 560, 360]]
+  quad:        [[420, 560, 300], [780, 560, 300], [1140, 560, 300], [1500, 560, 300]]
+  media:       [[960, 560, 1500, 800]]
+  media_word:  [[700, 560, 1060, 700], [1520, 560, 420]]
+  full:        [[960, 540, 1920, 1080]]
+
+word: {font_px: 130, ink: "#F5F7FA", stroke: 0, line_max: 10}
+
+caption: {enabled: false}
+
+subtitle:
+  enabled: false
+  y: 990
+  font_px: 40
+  color: "#F5F7FA"
+  stroke_color: "#05070D"
+  stroke: 6
+  max_chars: 22
+
+idle: {zoom_rate: 0.01, zoom_max: 0.03, float_px: 6, float_period: 3.6, float_step: 0.1}
+
+chapter: {bg: "#05070D", fg: "#F5F7FA", accent: "#00D1FF", number_px: 200, title_px: 84}
+
+hud:
+  enabled: true
+  title: ""
+  color: "#5B6B85"
+  accent: "#00D1FF"
+  progress: true
+
+timing: {cps: 4.6, cut_lead: 0.1, tail: 1.0, min_show: 0.6, blank_warn: 1.2}
+voice_gaps: {lead: 0.8, sentence: 0.25, segment: 0.45, chapter_before: 0.5, chapter_after: 0.5, tail: 1.5}
+
+sfx:
+  master: 0.55
+  dedupe: 0.08
+  gain: {pop: 0.4, pop_soft: 0.4, thud: 0.8, whoosh: 0.6, swish: 0.5, ding: 0.5, stamp: 0.7, impact: 0.9,
+         glitch: 0.5, riser: 0.5, shimmer: 0.4, tick: 0.4, boom: 0.8}
+
+music: {enabled: true, mood: tense, bpm: 120, gain: 0.6, duck: 0.6}
+
+image_prompt:
+  ratio: "1:1"
+  style_prompt: >-
+    深色科技感的单个线框图标：细发光线条勾勒、少量点阵与刻度装饰，没有写实质感，只画这一个主体，
+    不要背景，不要文字，主体居中，四周留白，纯透明背景。
+  accent_prompt: 发光线条使用{color_name}（{hex}），用于{accent_part}；其余部分用冷灰白细线。
+  label_prompt: 图上用等宽英文小字写「{label}」，不要写任何别的字。
+  character_prompt: 人物以剪影或线框表现，参考：{character}。
+  word_prompt: 一组粗体无衬线大字，内容严格为「{text}」，共 {n} 个字符；
+  word_color_split: 其中「{hl}」用{color_name}（{hex}）发光，「{rest}」用白色；
+  word_color_all: 字用{color_name}（{hex}）发光；
+  word_style_prompt: 纯透明背景，不要任何图案。

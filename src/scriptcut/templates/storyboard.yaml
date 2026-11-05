@@ -1,0 +1,19 @@
+# 分镜 + 素材库（规则见 skills/scriptcut-storyboard/SKILL.md）
+# 硬规则：所有镜头 text 按顺序拼接 == input/script.txt（逐字、含标点）。改分镜，不改文案。
+title: {title}
+script: input/script.txt
+
+elements:
+  # 人物 C01…：{role: character, accent: 点缀色, accent_part: 涂在哪, name: 简称, prompt: 画什么}
+  # 道具 P01…：{role: hero|icon|small, accent: …, accent_part: …, name: …, prompt: …}
+  # 文字 W01…：{kind: word, text: 要显示的字, hl: 用点缀色的部分, accent: …}
+  # 素材 M01…：{src: materials/截图.png, role: media, fit: contain}  或视频 {src: materials/片段.mp4, clip_in: 3.5, volume: 0}
+  W01: {kind: word, text: 待拆分镜, accent: 大红}
+
+shots:
+  # 每镜 2~4 秒（约 10~20 字），只在标点处切；items 最多 4 个，第一个元素的 trigger 落在本镜开头几个字
+  - id: S01
+    text: "{script}"
+    layout: hero
+    items:
+      - {el: W01}

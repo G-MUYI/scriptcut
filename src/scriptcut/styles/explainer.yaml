@@ -1,0 +1,101 @@
+# 轻科普解说（竖屏 9:16）
+# 画面：浅蓝灰点阵底 + 扁平图标 / 截图 / 数据卡 + 底部描边字幕 + 深色章节卡；顶部常驻栏目名与章节进度；
+# 代码合成轻快配乐（配音时自动压低）+ 动效音效；适合新闻解读、时政 / 财经科普、长度 2~5 分钟。
+name: explainer
+description: 浅色点阵底的解说视频，底部字幕、章节卡、常驻栏目条、轻配乐
+canvas: {width: 1080, height: 1920, fps: 30}
+
+background: {color: "#E9EEF3", pattern: dots, pattern_color: "#D3DCE6", spacing: 48}
+content_area: [60, 240, 1020, 1580]
+bleed_keep: 0.7
+max_items_per_shot: 4
+max_coverage: 0.55
+
+font:
+  files: [NotoSansCJK-Bold.ttc, SourceHanSansSC-Bold.otf, msyhbd.ttc, PingFang.ttc]
+  weight: 800
+
+palette:
+  橙:   {hex: "#F28C28", meaning: 强调、关键数字}
+  蓝:   {hex: "#2F6FDE", meaning: 中性主体、一方}
+  红:   {hex: "#E0473C", meaning: 风险、另一方、下跌}
+  绿:   {hex: "#2BA672", meaning: 通过、上涨}
+  紫:   {hex: "#7A5CE0", meaning: 制度、规则}
+  灰:   {hex: "#7D8794", meaning: 背景信息、空缺}
+
+roles:
+  character: {size: 760, preset: rise_bounce, bleed: false}
+  big:       {size: 900, preset: rise_bounce, bleed: false}
+  hero:      {size: 640, preset: pop}
+  icon:      {size: 380, preset: pop}
+  small:     {size: 260, preset: pop}
+  word:      {size: 520, preset: zoom_slam}
+  media:     {size: 900, preset: fade}
+
+layouts:
+  hero:        [[540, 900, 720]]
+  person:      [[540, 1000, 820]]
+  word_hero:   [[540, 480, 520], [540, 1080, 680]]
+  hero_word:   [[540, 820, 680], [540, 1400, 480]]
+  person_word: [[540, 1150, 760], [540, 470, 480]]
+  person_l:    [[330, 1050, 760], [790, 640, 380], [800, 1120, 320]]
+  person_r:    [[750, 1050, 760], [290, 640, 380], [280, 1120, 320]]
+  duo_v:       [[540, 640, 560], [540, 1220, 520]]
+  duo_h:       [[300, 900, 420], [780, 900, 420]]
+  duo_diag:    [[350, 640, 480], [730, 1180, 520]]
+  trio_tri:    [[540, 620, 540], [290, 1220, 380], [790, 1220, 380]]
+  trio_zig:    [[320, 560, 380], [760, 900, 380], [320, 1260, 380]]
+  row3_hero:   [[230, 520, 240], [540, 520, 240], [850, 520, 240], [540, 1080, 660]]
+  quad:        [[300, 640, 380], [780, 640, 380], [300, 1200, 380], [780, 1200, 380]]
+  media:       [[540, 900, 960, 1180]]
+  media_word:  [[540, 1000, 960, 860], [540, 420, 480]]
+  full:        [[540, 960, 1080, 1920]]
+
+word: {font_px: 140, ink: "#1F2633", stroke: 0, line_max: 8}
+
+caption: {enabled: false}
+
+subtitle:
+  enabled: true
+  y: 1700                  # 字幕块中心
+  font_px: 56
+  color: "#FFFFFF"
+  stroke_color: "#1F2633"
+  stroke: 10
+  max_chars: 14
+  min_hold: 0.0
+
+idle: {zoom_rate: 0.012, zoom_max: 0.04, float_px: 8, float_period: 3.2, float_step: 0.1}
+
+chapter: {bg: "#1F2633", fg: "#FFFFFF", accent: "#F28C28", number_px: 220, title_px: 92}
+
+hud:
+  enabled: true
+  title: ""                # 留空则用 project.yaml 的 title
+  color: "#4A5566"
+  accent: "#F28C28"
+  progress: true           # 章节进度短条
+
+timing: {cps: 4.6, cut_lead: 0.12, tail: 1.2, min_show: 0.6, blank_warn: 1.0}
+voice_gaps: {lead: 0.4, sentence: 0.16, segment: 0.38, chapter_before: 0.5, chapter_after: 0.55, tail: 1.2}
+
+sfx:
+  master: 0.5
+  dedupe: 0.07
+  gain: {pop: 0.5, pop_soft: 0.45, thud: 0.8, whoosh: 0.6, swish: 0.5, ding: 0.45, stamp: 0.8, scribble: 0.5,
+         strike: 0.6, counter: 0.5, swing: 0.4, boing: 0.45, boom: 0.7}
+
+music: {enabled: true, mood: calm, bpm: 104, gain: 0.55, duck: 0.65}
+
+image_prompt:
+  ratio: "1:1"
+  style_prompt: >-
+    扁平矢量信息图风格的单个独立图标素材：粗细一致的深色描边，纯色平涂，没有渐变、纹理和柔和阴影，
+    造型简洁、圆角、友好；只画这一个主体，不要背景，除指定标注外不要任何文字，主体居中，四周留白，纯透明背景。
+  accent_prompt: 主色使用{color_name}（{hex}），用于{accent_part}；其余部分只用深灰描边、白色和浅灰。
+  label_prompt: 图上写清楚「{label}」几个字（无衬线粗体，深灰色），不要写任何别的字。
+  character_prompt: 人物外观参考人物参考图：{character}；扁平风格、表情清楚。
+  word_prompt: 一组无衬线粗体大字，内容严格为「{text}」，共 {n} 个字符，一字不多、一字不少；
+  word_color_split: 其中「{hl}」用{color_name}（{hex}），「{rest}」用深灰；
+  word_color_all: 字用{color_name}（{hex}）；
+  word_style_prompt: 不要任何图案、边框、背景，纯透明背景。

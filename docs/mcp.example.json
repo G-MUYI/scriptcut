@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "scriptcut": {
+      "command": "python",
+      "args": ["-m", "scriptcut.mcp_server"],
+      "env": {"PYTHONPATH": "src", "PYTHONUTF8": "1"}
+    }
+  }
+}

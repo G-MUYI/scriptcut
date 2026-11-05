@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scriptcut"
+version = "0.1.0"
+description = "ScriptCut：文案驱动、配音为主时钟的自动剪辑工作流（Canvas 代码出片 / 剪映草稿），为 AI Agent 调用设计"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "Pillow>=10",
+    "PyYAML>=6.0",
+    "requests>=2.28",
+]
+
+[project.optional-dependencies]
+render = ["playwright>=1.45"]            # Canvas 逐帧出片：装完再执行 `playwright install chromium`
+jianying = ["pyJianYingDraft==0.3.0"]    # 生成剪映草稿
+tts = ["edge-tts>=6.1"]                  # 免费 TTS（不需要 Key）
+docx = ["python-docx>=1.1"]              # 读取 .docx 文案
+sheet = ["openpyxl>=3.1"]                # 导出分镜审阅表 xlsx
+mcp = ["mcp>=1.2", "uvicorn>=0.30"]      # MCP Server（stdio + HTTP）
+all = ["playwright>=1.45", "pyJianYingDraft==0.3.0", "edge-tts>=6.1", "python-docx>=1.1", "openpyxl>=3.1", "mcp>=1.2", "uvicorn>=0.30"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+scriptcut = "scriptcut.cli:main"
+scriptcut-mcp = "scriptcut.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+scriptcut = ["styles/*.yaml", "render/web/*", "templates/*", "skills/*/*", "skills/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "render: 需要 Playwright + Chromium",
+    "jianying: 需要 pyJianYingDraft",
+]
